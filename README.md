@@ -1,16 +1,35 @@
-# my_pantry_flutter_app
+# My Pantry
 
-My Pantry - mobile multiplatform app - iOS & Android
+The application is designed to help you maintain the freshness and order in the home pantry. It reminds you of the expiry products from your pantry. When adding new products You can print stickers with QR code and name of product. You can find product by scan the sticker to find product details in your pantry, delete it or print new sticker.
 
-## Getting Started
+## Installation
 
-This project is a starting point for a Flutter application.
+The application is under development. When the project is completed, it will be published in Google Play and Apple AppStore.
 
-A few resources to get you started if this is your first Flutter project:
+## Platforms
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The application is created for iOS and Android for tablets and smartphones.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Instruction
+
+1. Add a product or several products to the product database.
+2. Print labels for added products.
+3. For product details, scan the code through the application.
+4. In the number of days what you set in settings you can receive a notify about expiry the product.
+5. Enjoy the not out-of-date products :)
+
+## Author
+
+* **Mateusz Hermanowicz** - [LinkedIn](https://www.linkedin.com/in/mateusz-hermanowicz-579064182/)
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details
+
+## Website
+
+Website of application is https://www.mypantry.pl
+
+## Contact with author
+
+If you have ideas for developing the application, it does not work on your device or you just want to contact the author, write an email via contact form on www.mypantry.pl
