@@ -1,0 +1,61 @@
+{
+  "myPantry": "My Pantry",
+  "@myPantry": {
+    "description": "Tab name"
+  },
+  "newProduct": "New product",
+  "@newProduct": {
+    "description": "Tab name"
+  },
+  "scanProduct": "Scan product",
+  "@scanProduct": {
+    "description": "Tab name"
+  },
+  "productDetails": "Product details",
+  "@productDetails": {
+    "description": "Tab name"
+  },
+  "editProduct": "Edit product",
+  "@editProduct": {
+    "description": "Tab name"
+  },
+  "ownCategories": "Own categories",
+  "@ownCategories": {
+    "description": "Tab name"
+  },
+  "settings": "Settings",
+  "@settings": {
+    "description": "Tab name"
+  },
+  "storageLocations": "Storage locations",
+  "@storageLocations": {
+    "description": "Tab name"
+  },
+  "filterProduct": "Filter product",
+  "@filterProduct": {
+    "description": "Tab name"
+  },
+  "printQRCodes": "Print QR Codes",
+  "@printQRCodes": {
+    "description": "Tab name"
+  },
+  "addPhoto": "Add photo",
+  "@addPhoto": {
+    "description": "Tab name"
+  },
+  "productName": "Product name",
+  "expirationDate": "Expiration date",
+  "productionDate": "Production date",
+  "quantity": "Quantity",
+  "composition": "Composition",
+  "healingProperties": "Healing properties",
+  "dosage": "Dosage",
+  "weight": "Weight",
+  "volume": "Volume",
+  "isBio": "Is bio",
+  "isVege": "Is vege",
+  "hasSugar": "Has sugar",
+  "hasSalt": "Has salt",
+  "addProduct": "Add product"
+
+}
