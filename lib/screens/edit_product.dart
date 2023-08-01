@@ -3,37 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'my_pantry.dart';
-import 'widgets.dart';
+import '../widgets/widgets.dart';
 
-class AddPhoto extends StatefulWidget {
-  static const title = 'Add photo';
-  static const androidIcon = Icon(Icons.add);
-  static const iosIcon = Icon(CupertinoIcons.add);
-
-  const AddPhoto({super.key});
+class EditProduct extends StatefulWidget {
+  static const title = 'Edit product';
+  static const androidIcon = Icon(Icons.edit);
+  static const iosIcon = Icon(CupertinoIcons.pencil);
+  const EditProduct({super.key});
 
   @override
-  State<StatefulWidget> createState() => _AddPhotoState();
+  State<StatefulWidget> createState() => _EditProductState();
 }
 
-class _AddPhotoState extends State<AddPhoto> {
+class _EditProductState extends State<EditProduct> {
 
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
           children: [Expanded(
               child: Center(
-                child: Text(AppLocalizations.of(context)!.addPhoto),
+                child: Text(AppLocalizations.of(context)!.editProduct),
               ))
           ],
         )
-    );
-  }
+    );  }
 
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.addPhoto),
+        title: Text(AppLocalizations.of(context)!.editProduct),
       ),
       body: _buildBody(context),
     );

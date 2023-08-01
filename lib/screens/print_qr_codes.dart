@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'my_pantry.dart';
-import 'widgets.dart';
+import '../widgets/widgets.dart';
 
-class ProductDetails extends StatelessWidget {
-  static const title = 'Product details';
+class PrintQRCodes extends StatelessWidget {
+  static const title = 'Print QR Codes';
 
-  const ProductDetails({super.key});
+  const PrintQRCodes({super.key});
 
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
           children: [Expanded(
               child: Center(
-                child: Text(AppLocalizations.of(context)!.productDetails),
+                child: Text(AppLocalizations.of(context)!.printQRCodes),
               ))],
         )
     );
@@ -24,7 +24,7 @@ class ProductDetails extends StatelessWidget {
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context)!.productDetails),
+        title: Text(AppLocalizations.of(context)!.printQRCodes),
       ),
       body: _buildBody(context),
     );

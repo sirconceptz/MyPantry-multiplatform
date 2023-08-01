@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'widgets.dart';
+import 'widgets/widgets.dart';
 
-import 'filter_product.dart';
-import 'my_pantry.dart';
-import 'scan_product.dart';
-import 'settings.dart';
-import 'new_product.dart';
-import 'storage_locations.dart';
-import 'own_categories.dart';
+import 'screens/filter_product.dart';
+import 'screens/my_pantry.dart';
+import 'screens/scan_product.dart';
+import 'screens/settings.dart';
+import 'screens/new_product.dart';
+import 'screens/storage_locations.dart';
+import 'screens/own_categories.dart';
 
 void main() => runApp(const MyPantryApp());
 
@@ -32,7 +32,6 @@ class MyPantryApp extends StatelessWidget {
       darkTheme: ThemeData.dark(),
       builder: (context, child) {
         return CupertinoTheme(
-
           data: const CupertinoThemeData(),
           child: Material(child: child),
         );
@@ -65,10 +64,6 @@ class _PlatformAdaptingHomePageState extends State<PlatformAdaptingHomePage> {
             icon: MyPantry.iosIcon,
           ),
           BottomNavigationBarItem(
-            label: AppLocalizations.of(context)!.newProduct,
-            icon: NewProduct.iosIcon,
-          ),
-          BottomNavigationBarItem(
             label: AppLocalizations.of(context)!.scanProduct,
             icon: ScanProduct.iosIcon,
           ),
@@ -81,43 +76,31 @@ class _PlatformAdaptingHomePageState extends State<PlatformAdaptingHomePage> {
             icon: StorageLocations.iosIcon,
           ),
           BottomNavigationBarItem(
-            label: AppLocalizations.of(context)!.filterProduct,
-            icon: FilterProduct.iosIcon,
-          ),
-          BottomNavigationBarItem(
             label:AppLocalizations.of(context)!.settings,
             icon: Settings.iosIcon,
           ),
         ],
       ),
       tabBuilder: (context, index) {
-        assert(index <= 6 && index >= 0, 'Unexpected tab index: $index');
+        assert(index <= 4 && index >= 0, 'Unexpected tab index: $index');
         return switch (index) {
           0 => CupertinoTabView(
             defaultTitle: AppLocalizations.of(context)!.myPantry,
             builder: (context) => MyPantry(androidDrawer: _AndroidDrawer()),
           ),
           1 => CupertinoTabView(
-            defaultTitle: AppLocalizations.of(context)!.newProduct,
-            builder: (context) => NewProduct(androidDrawer: _AndroidDrawer()),
-          ),
-          2 => CupertinoTabView(
             defaultTitle: AppLocalizations.of(context)!.scanProduct,
             builder: (context) => ScanProduct(androidDrawer: _AndroidDrawer()),
           ),
-          3 => CupertinoTabView(
+          2 => CupertinoTabView(
             defaultTitle: AppLocalizations.of(context)!.ownCategories,
             builder: (context) => OwnCategories(androidDrawer: _AndroidDrawer()),
           ),
-          4 => CupertinoTabView(
+          3 => CupertinoTabView(
             defaultTitle: AppLocalizations.of(context)!.storageLocations,
             builder: (context) => StorageLocations(androidDrawer: _AndroidDrawer()),
           ),
-          5 => CupertinoTabView(
-            defaultTitle: AppLocalizations.of(context)!.filterProduct,
-            builder: (context) => FilterProduct(androidDrawer: _AndroidDrawer()),
-          ),
-          6 => CupertinoTabView(
+          4 => CupertinoTabView(
             defaultTitle: AppLocalizations.of(context)!.settings,
             builder: (context) => Settings(androidDrawer: _AndroidDrawer()),
           ),

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'my_pantry.dart';
-import 'widgets.dart';
+import '../widgets/widgets.dart';
 
 class ScanProduct extends StatelessWidget {
   static const title = 'Scan product';

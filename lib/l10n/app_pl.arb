@@ -23,5 +23,10 @@
   "isVege": "Bio",
   "hasSugar": "Z cukrem",
   "hasSalt": "Z solą",
-  "addProduct": "Dodaj produkt"
+  "addProduct": "Dodaj produkt",
+  "sweet": "Słodki",
+  "sour": "Kwaśny",
+  "sweetAndSour": "Słodko-kwaśny",
+  "bitter": "Gorzki",
+  "salty": "Słony"
 }

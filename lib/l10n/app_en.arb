@@ -56,6 +56,10 @@
   "isVege": "Is vege",
   "hasSugar": "Has sugar",
   "hasSalt": "Has salt",
-  "addProduct": "Add product"
-
+  "addProduct": "Add product",
+  "sweet": "Sweet",
+  "sour": "Sour",
+  "sweetAndSour": "Sweet and sour",
+  "bitter": "Bitter",
+  "salty": "Salty"
 }
