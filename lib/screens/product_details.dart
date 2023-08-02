@@ -2,23 +2,46 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../models/product.dart';
+import '../widgets/platform_widget.dart';
 import 'my_pantry.dart';
-import '../widgets/widgets.dart';
 
 class ProductDetails extends StatelessWidget {
   static const title = 'Product details';
+  final Product? product;
 
-  const ProductDetails({super.key});
+  const ProductDetails({Key? key, this.product}) : super(key: key);
+
+  Widget _buildForm() {
+    var name = "";
+    var expirationDate = "";
+    var productionDate = "";
+
+    if (product != null) {
+      name = product!.name;
+      expirationDate = product!.expirationDate;
+      productionDate = product!.productionDate;
+    }
+
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 96),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(name),
+          Text(expirationDate),
+          Text(productionDate)
+        ]));
+  }
 
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
-          children: [Expanded(
-              child: Center(
-                child: Text(AppLocalizations.of(context)!.productDetails),
-              ))],
-        )
-    );
+      children: [
+        Expanded(
+            child: Center(
+          child: _buildForm(),
+        ))
+      ],
+    ));
   }
 
   Widget _buildAndroid(BuildContext context) {
@@ -35,15 +58,9 @@ class ProductDetails extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: MyPantry.iosIcon,
+          child: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context, rootNavigator: true).push<void>(
-              CupertinoPageRoute(
-                title: MyPantry.title,
-                fullscreenDialog: true,
-                builder: (context) => const MyPantry(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),

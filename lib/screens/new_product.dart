@@ -2,9 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../models/product.dart';
+import '../services/database_helper.dart';
 import '../utils/taste.dart';
-import '../widgets/widgets.dart';
-import 'my_pantry.dart';
+import '../widgets/platform_widget.dart';
 
 class NewProduct extends StatefulWidget {
   static const title = 'New product';
@@ -43,9 +44,12 @@ class _NewProductState extends State<NewProduct> {
     return Scaffold(
       resizeToAvoidBottomInset: false, // set it to false
       body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 96),
-        child: _buildForm(context),
+          child: SafeArea(
+        top: true,
+        bottom: true,
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: _buildForm(context)),
       )),
     );
   }
@@ -278,16 +282,44 @@ class _NewProductState extends State<NewProduct> {
           ),
           Center(
               child: ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               // Validate returns true if the form is valid, or false otherwise.
-              if (_formKey.currentState!.validate()) {
-                // If the form is valid, display a snackbar. In the real world,
-                // you'd often call a server or save the information in a database.
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Processing Data')),
-                );
-              }
-            },
+              //if (_formKey.currentState!.validate()) {
+              // If the form is valid, display a snackbar. In the real world,
+              // you'd often call a server or save the information in a database.
+              final name = nameController.value.text;
+              final expirationDate = expirationDateController.value.text;
+              final productionDate = productionDateController.value.text;
+              final composition = compositionController.value.text;
+              final healingProperties = healingPropertiesController.value.text;
+              final dosage = dosageController.value.text;
+              final weight = weightController.value.text;
+              final volume = volumeController.value.text;
+              final isVege = isVegeChecked;
+              final isBio = isBioChecked;
+              final hasSugar = hasSugarChecked;
+              final hasSalt = hasSaltChecked;
+              final taste = _taste.toString();
+
+              final Product product = Product(
+                  id: null,
+                  name: name,
+                  expirationDate: expirationDate,
+                  productionDate: productionDate,
+                  composition: composition,
+                  healingProperties: healingProperties,
+                  dosage: dosage,
+                  weight: int.parse(weight),
+                  volume: int.parse(volume),
+                  isVege: isVege,
+                  isBio: isBio,
+                  hasSugar: hasSugar,
+                  hasSalt: hasSalt,
+                  taste: taste);
+              await DatabaseHelper.addProduct(product);
+            }
+            //}
+            ,
             child: Text(AppLocalizations.of(context)!.addProduct),
           )),
         ],
@@ -310,7 +342,7 @@ class _NewProductState extends State<NewProduct> {
       navigationBar: CupertinoNavigationBar(
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: MyPantry.iosIcon,
+          child: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },

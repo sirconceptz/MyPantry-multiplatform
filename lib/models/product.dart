@@ -1,7 +1,7 @@
 import 'dart:core';
 
 class Product {
-  final int id;
+  final int? id;
   final String name;
   final String expirationDate;
   final String productionDate;
@@ -33,24 +33,7 @@ class Product {
     required this.taste
   });
 
-  factory Product.fromJson(Map<String,dynamic> json) => Product(
-    id: json['id'],
-    name: json['name'],
-    expirationDate: json['expirationDate'],
-    productionDate: json['productionDate'],
-    composition: json['composition'],
-    healingProperties: json['healingProperties'],
-    dosage: json['dosage'],
-    weight: json['weight'],
-    volume: json['volume'],
-    isVege: json['isVege'],
-    isBio: json['isBio'],
-    hasSugar: json['hasSugar'],
-    hasSalt: json['hasSalt'],
-    taste: json['taste']
-  );
-
-  Map<String,dynamic> toJson() => {
+  Map<String, dynamic> toMap() => {
     'id': id,
     'name': name,
     'expirationDate': expirationDate,
@@ -60,10 +43,10 @@ class Product {
     'dosage': dosage,
     'weight': weight,
     'volume': volume,
-    'isVege': isVege,
-    'isBio': isBio,
-    'hasSugar': hasSugar,
-    'hasSalt': hasSalt,
+    'isVege': isVege == true ? 1 : 0,
+    'isBio': isBio == true ? 1 : 0,
+    'hasSugar': hasSugar == true ? 1 : 0,
+    'hasSalt': hasSalt == true ? 1 : 0,
     'taste': taste
   };
 }

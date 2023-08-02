@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'my_pantry.dart';
-import '../widgets/widgets.dart';
+import '../widgets/platform_widget.dart';
 
 class EditProduct extends StatefulWidget {
   static const title = 'Edit product';
