@@ -18,7 +18,6 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-
   @override
   void initState() {
     super.initState();
@@ -27,12 +26,13 @@ class _SettingsState extends State<Settings> {
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
-          children: [Expanded(
-              child: Center(
-                child: Text(AppLocalizations.of(context)!.settings),
-              ))],
-        )
-    );
+      children: [
+        Expanded(
+            child: Center(
+          child: Text(AppLocalizations.of(context)!.settings),
+        ))
+      ],
+    ));
   }
 
   Widget _buildAndroid(BuildContext context) {

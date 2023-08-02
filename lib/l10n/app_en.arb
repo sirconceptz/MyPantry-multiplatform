@@ -61,5 +61,8 @@
   "sour": "Sour",
   "sweetAndSour": "Sweet and sour",
   "bitter": "Bitter",
-  "salty": "Salty"
+  "salty": "Salty",
+  "yes": "Yes",
+  "no": "No",
+  "noProducts": "No products"
 }

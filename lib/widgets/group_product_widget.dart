@@ -22,7 +22,22 @@ class GroupProductWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 12),
         child: Card(
-          child: Column(children: [Text(product.name)]),
+          child: Column(children: [
+            Row(
+              children: [
+                const Text("Product name"),
+                const Spacer(), // use Spacer
+                Text(product.name),
+              ],
+            ),
+            Row(
+              children: [
+                const Text("Expiration date"),
+                const Spacer(), // use Spacer
+                Text(product.expirationDate),
+              ],
+            )
+          ]),
         ),
       ),
     );

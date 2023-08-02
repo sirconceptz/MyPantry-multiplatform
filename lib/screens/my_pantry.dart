@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_pantry_flutter_app/screens/new_product.dart';
 import 'package:my_pantry_flutter_app/screens/product_details.dart';
 import 'package:my_pantry_flutter_app/services/database_helper.dart';
@@ -52,9 +53,9 @@ class _MyPantryState extends State<MyPantry> {
                           ));
                 }
               } else {
-                return const Text("No products");
+                return Text(AppLocalizations.of(context)!.noProducts);
               }
-              return const Text("No products");
+              return Text(AppLocalizations.of(context)!.noProducts);
             },
           ),
         ))

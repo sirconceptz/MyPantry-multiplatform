@@ -8,6 +8,7 @@ class OwnCategories extends StatefulWidget {
   static const title = 'Own categories';
   static const androidIcon = Icon(Icons.bookmark);
   static const iosIcon = Icon(CupertinoIcons.bookmark);
+
   const OwnCategories({super.key, this.androidDrawer});
 
   final Widget? androidDrawer;
@@ -17,17 +18,17 @@ class OwnCategories extends StatefulWidget {
 }
 
 class _OwnCategoriesState extends State<OwnCategories> {
-
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
-          children: [Expanded(
-              child: Center(
-                child: Text(AppLocalizations.of(context)!.ownCategories),
-              ))
-          ],
-        )
-    );  }
+      children: [
+        Expanded(
+            child: Center(
+          child: Text(AppLocalizations.of(context)!.ownCategories),
+        ))
+      ],
+    ));
+  }
 
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
@@ -41,8 +42,7 @@ class _OwnCategoriesState extends State<OwnCategories> {
 
   Widget _buildIos(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-      ),
+      navigationBar: const CupertinoNavigationBar(),
       child: _buildBody(context),
     );
   }

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'my_pantry.dart';
 import '../widgets/platform_widget.dart';
+import 'my_pantry.dart';
 
 class FilterProduct extends StatelessWidget {
   static const title = 'Filter product';
@@ -16,13 +16,14 @@ class FilterProduct extends StatelessWidget {
 
   Widget _buildBody(BuildContext context) {
     return Material(
-      child: Column(
-        children: [Expanded(
+        child: Column(
+      children: [
+        Expanded(
             child: Center(
-              child: Text(AppLocalizations.of(context)!.filterProduct),
-            ))],
-      )
-    );
+          child: Text(AppLocalizations.of(context)!.filterProduct),
+        ))
+      ],
+    ));
   }
 
   Widget _buildAndroid(BuildContext context) {

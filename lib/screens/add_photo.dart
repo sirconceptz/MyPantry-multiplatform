@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'my_pantry.dart';
 import '../widgets/platform_widget.dart';
+import 'my_pantry.dart';
 
 class AddPhoto extends StatefulWidget {
   static const title = 'Add photo';
@@ -17,17 +17,16 @@ class AddPhoto extends StatefulWidget {
 }
 
 class _AddPhotoState extends State<AddPhoto> {
-
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
-          children: [Expanded(
-              child: Center(
-                child: Text(AppLocalizations.of(context)!.addPhoto),
-              ))
-          ],
-        )
-    );
+      children: [
+        Expanded(
+            child: Center(
+          child: Text(AppLocalizations.of(context)!.addPhoto),
+        ))
+      ],
+    ));
   }
 
   Widget _buildAndroid(BuildContext context) {
@@ -56,8 +55,7 @@ class _AddPhotoState extends State<AddPhoto> {
             },
           ),
         ),
-        child: _buildBody(context)
-    );
+        child: _buildBody(context));
   }
 
   @override

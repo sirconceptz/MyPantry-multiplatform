@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'my_pantry.dart';
 import '../widgets/platform_widget.dart';
+import 'my_pantry.dart';
 
 class EditProduct extends StatefulWidget {
   static const title = 'Edit product';
   static const androidIcon = Icon(Icons.edit);
   static const iosIcon = Icon(CupertinoIcons.pencil);
+
   const EditProduct({super.key});
 
   @override
@@ -16,17 +17,17 @@ class EditProduct extends StatefulWidget {
 }
 
 class _EditProductState extends State<EditProduct> {
-
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
-          children: [Expanded(
-              child: Center(
-                child: Text(AppLocalizations.of(context)!.editProduct),
-              ))
-          ],
-        )
-    );  }
+      children: [
+        Expanded(
+            child: Center(
+          child: Text(AppLocalizations.of(context)!.editProduct),
+        ))
+      ],
+    ));
+  }
 
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
@@ -54,8 +55,7 @@ class _EditProductState extends State<EditProduct> {
             },
           ),
         ),
-        child: _buildBody(context)
-    );
+        child: _buildBody(context));
   }
 
   @override

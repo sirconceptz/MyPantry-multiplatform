@@ -16,37 +16,36 @@ class Product {
   final bool hasSalt;
   final String taste;
 
-  const Product({
-    required this.id,
-    required this.name,
-    required this.expirationDate,
-    required this.productionDate,
-    required this.composition,
-    required this.healingProperties,
-    required this.dosage,
-    required this.weight,
-    required this.volume,
-    required this.isVege,
-    required this.isBio,
-    required this.hasSugar,
-    required this.hasSalt,
-    required this.taste
-  });
+  const Product(
+      {required this.id,
+      required this.name,
+      required this.expirationDate,
+      required this.productionDate,
+      required this.composition,
+      required this.healingProperties,
+      required this.dosage,
+      required this.weight,
+      required this.volume,
+      required this.isVege,
+      required this.isBio,
+      required this.hasSugar,
+      required this.hasSalt,
+      required this.taste});
 
   Map<String, dynamic> toMap() => {
-    'id': id,
-    'name': name,
-    'expirationDate': expirationDate,
-    'productionDate': productionDate,
-    'composition': composition,
-    'healingProperties': healingProperties,
-    'dosage': dosage,
-    'weight': weight,
-    'volume': volume,
-    'isVege': isVege == true ? 1 : 0,
-    'isBio': isBio == true ? 1 : 0,
-    'hasSugar': hasSugar == true ? 1 : 0,
-    'hasSalt': hasSalt == true ? 1 : 0,
-    'taste': taste
-  };
+        'id': id,
+        'name': name,
+        'expirationDate': expirationDate,
+        'productionDate': productionDate,
+        'composition': composition,
+        'healingProperties': healingProperties,
+        'dosage': dosage,
+        'weight': weight,
+        'volume': volume,
+        'isVege': isVege == true ? 1 : 0,
+        'isBio': isBio == true ? 1 : 0,
+        'hasSugar': hasSugar == true ? 1 : 0,
+        'hasSalt': hasSalt == true ? 1 : 0,
+        'taste': taste
+      };
 }

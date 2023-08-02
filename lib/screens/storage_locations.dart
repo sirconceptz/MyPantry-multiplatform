@@ -18,17 +18,17 @@ class StorageLocations extends StatefulWidget {
 }
 
 class _StorageLocationsState extends State<StorageLocations> {
-
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
-          children: [Expanded(
-              child: Center(
-                child: Text(AppLocalizations.of(context)!.storageLocations),
-              ))
-          ],
-        )
-    );  }
+      children: [
+        Expanded(
+            child: Center(
+          child: Text(AppLocalizations.of(context)!.storageLocations),
+        ))
+      ],
+    ));
+  }
 
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
@@ -42,10 +42,8 @@ class _StorageLocationsState extends State<StorageLocations> {
 
   Widget _buildIos(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
-      ),
-      child: _buildBody(context)
-    );
+        navigationBar: const CupertinoNavigationBar(),
+        child: _buildBody(context));
   }
 
   @override
