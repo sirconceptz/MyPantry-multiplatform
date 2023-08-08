@@ -28,5 +28,14 @@
   "sour": "Kwaśny",
   "sweetAndSour": "Słodko-kwaśny",
   "bitter": "Gorzki",
-  "salty": "Słony"
-}
+  "salty": "Słony",
+  "yes": "Tak",
+  "no": "Nie",
+  "noProducts": "Brak produktów",
+  "noOwnCategories": "Brak własnych kategorii",
+  "noStorageLocations": "Brak miejsc przechowywania",
+  "name": "Nazwa",
+  "description": "Opis",
+  "save": "Zapisz",
+  "newOwnCategory": "Nowa kategoria",
+  "newStorageLocation": "Nowe miejsce przechowywania"}

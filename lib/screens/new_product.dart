@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 import '../models/product.dart';
 import '../services/database_helper.dart';
@@ -24,6 +25,8 @@ class _NewProductState extends State<NewProduct> {
   final _formKey = GlobalKey<FormState>();
 
   var nameController = TextEditingController();
+  var mainCategoryValue = "one";
+  var detailCategoryValue = "one";
   var expirationDateController = TextEditingController();
   var productionDateController = TextEditingController();
   var quantityController = TextEditingController();
@@ -39,14 +42,14 @@ class _NewProductState extends State<NewProduct> {
   bool hasSaltChecked = false;
 
   Taste? _taste = Taste.sweet;
+  var mainCategories = <String>['one', 'two', 'three'];
+  var detailCategories = <String>['one', 'two', 'three'];
 
   Widget _buildBody(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false, // set it to false
       body: SingleChildScrollView(
           child: SafeArea(
-        top: true,
-        bottom: true,
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: _buildForm(context)),
@@ -55,6 +58,8 @@ class _NewProductState extends State<NewProduct> {
   }
 
   Widget _buildForm(BuildContext context) {
+
+
     return Form(
       key: _formKey,
       child: Column(
@@ -73,31 +78,81 @@ class _NewProductState extends State<NewProduct> {
               return null;
             },
           ),
+          DropdownButton(
+              isExpanded: true,
+              enableFeedback: true,
+              items:
+                  mainCategories.map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? value) {
+                setState(() {
+                  mainCategoryValue = value!;
+                });
+              }),
+          DropdownButton(
+              isExpanded: true,
+              enableFeedback: true,
+              items: detailCategories
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+              onChanged: (String? value) {
+                setState(() {
+                  detailCategoryValue = value!;
+                });
+              }),
           TextFormField(
             controller: expirationDateController,
+            readOnly: true,
+              onTap: () async {
+                DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate:DateTime(2000),
+                    lastDate: DateTime(2101)
+                );
+                if(pickedDate != null ){
+                  String formattedDate = DateFormat('yyyy.MM.dd').format(pickedDate);
+                  setState(() {
+                    expirationDateController.text = formattedDate;
+                  });
+                }
+              },
             decoration: InputDecoration(
+              icon: const Icon(Icons.calendar_today), //icon of text field
               hintText: AppLocalizations.of(context)!.expirationDate,
               labelText: AppLocalizations.of(context)!.expirationDate,
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
           ),
           TextFormField(
             controller: productionDateController,
+            readOnly: true,
+            onTap: () async {
+              DateTime? pickedDate = await showDatePicker(
+                  context: context,
+                  initialDate: DateTime.now(),
+                  firstDate:DateTime(2000),
+                  lastDate: DateTime(2101)
+              );
+              if(pickedDate != null ){
+                String formattedDate = DateFormat('yyyy.MM.dd').format(pickedDate);
+                setState(() {
+                  productionDateController.text = formattedDate;
+                });
+              }
+            },
             decoration: InputDecoration(
+              icon: const Icon(Icons.calendar_today), //icon of text field
               hintText: AppLocalizations.of(context)!.productionDate,
               labelText: AppLocalizations.of(context)!.productionDate,
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
           ),
           TextFormField(
             controller: quantityController,
@@ -105,13 +160,7 @@ class _NewProductState extends State<NewProduct> {
               hintText: AppLocalizations.of(context)!.quantity,
               labelText: AppLocalizations.of(context)!.quantity,
             ),
-            keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some value';
-              }
-              return null;
-            },
+            keyboardType: TextInputType.number
           ),
           TextFormField(
             controller: compositionController,
@@ -119,12 +168,6 @@ class _NewProductState extends State<NewProduct> {
               hintText: AppLocalizations.of(context)!.composition,
               labelText: AppLocalizations.of(context)!.composition,
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
           ),
           TextFormField(
             controller: healingPropertiesController,
@@ -132,12 +175,6 @@ class _NewProductState extends State<NewProduct> {
               hintText: AppLocalizations.of(context)!.healingProperties,
               labelText: AppLocalizations.of(context)!.healingProperties,
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
           ),
           TextFormField(
             controller: dosageController,
@@ -145,12 +182,6 @@ class _NewProductState extends State<NewProduct> {
               hintText: AppLocalizations.of(context)!.dosage,
               labelText: AppLocalizations.of(context)!.dosage,
             ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some text';
-              }
-              return null;
-            },
           ),
           TextFormField(
             controller: weightController,
@@ -159,12 +190,6 @@ class _NewProductState extends State<NewProduct> {
               labelText: AppLocalizations.of(context)!.weight,
             ),
             keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some value';
-              }
-              return null;
-            },
           ),
           TextFormField(
             controller: volumeController,
@@ -173,12 +198,6 @@ class _NewProductState extends State<NewProduct> {
               labelText: AppLocalizations.of(context)!.volume,
             ),
             keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter some value';
-              }
-              return null;
-            },
           ),
           CheckboxListTile(
             title: Text(AppLocalizations.of(context)!.isVege),
@@ -284,42 +303,50 @@ class _NewProductState extends State<NewProduct> {
               child: ElevatedButton(
             onPressed: () async {
               // Validate returns true if the form is valid, or false otherwise.
-              //if (_formKey.currentState!.validate()) {
-              // If the form is valid, display a snackbar. In the real world,
-              // you'd often call a server or save the information in a database.
-              final name = nameController.value.text;
-              final expirationDate = expirationDateController.value.text;
-              final productionDate = productionDateController.value.text;
-              final composition = compositionController.value.text;
-              final healingProperties = healingPropertiesController.value.text;
-              final dosage = dosageController.value.text;
-              final weight = weightController.value.text;
-              final volume = volumeController.value.text;
-              final isVege = isVegeChecked;
-              final isBio = isBioChecked;
-              final hasSugar = hasSugarChecked;
-              final hasSalt = hasSaltChecked;
-              final taste = _taste.toString();
+              if (_formKey.currentState!.validate()) {
+                // If the form is valid, display a snackbar. In the real world,
+                // you'd often call a server or save the information in a database.
+                final name = nameController.value.text;
+                final mainCategory = mainCategoryValue;
+                final detailCategory = detailCategoryValue;
+                final expirationDate = expirationDateController.value.text;
+                final productionDate = productionDateController.value.text;
+                final composition = compositionController.value.text;
+                final healingProperties =
+                    healingPropertiesController.value.text;
+                final quantity = int.parse(quantityController.text);
+                final dosage = dosageController.value.text;
+                final weight = int.parse(weightController.value.text);
+                final volume = int.parse(volumeController.value.text);
+                final isVege = isVegeChecked;
+                final isBio = isBioChecked;
+                final hasSugar = hasSugarChecked;
+                final hasSalt = hasSaltChecked;
+                final taste = _taste.toString();
 
-              final Product product = Product(
-                  id: null,
-                  name: name,
-                  expirationDate: expirationDate,
-                  productionDate: productionDate,
-                  composition: composition,
-                  healingProperties: healingProperties,
-                  dosage: dosage,
-                  weight: int.parse(weight),
-                  volume: int.parse(volume),
-                  isVege: isVege,
-                  isBio: isBio,
-                  hasSugar: hasSugar,
-                  hasSalt: hasSalt,
-                  taste: taste);
-              await DatabaseHelper.addProduct(product);
-            }
-            //}
-            ,
+                final Product product = Product(
+                    id: null,
+                    mainCategory: mainCategory,
+                    detailCategory: detailCategory,
+                    name: name,
+                    expirationDate: expirationDate,
+                    productionDate: productionDate,
+                    composition: composition,
+                    healingProperties: healingProperties,
+                    dosage: dosage,
+                    weight: weight,
+                    volume: volume,
+                    isVege: isVege,
+                    isBio: isBio,
+                    hasSugar: hasSugar,
+                    hasSalt: hasSalt,
+                    taste: taste);
+
+                for (var i = 1; i <= quantity; i++) {
+                  await DatabaseHelper.addProduct(product);
+                }
+              }
+            },
             child: Text(AppLocalizations.of(context)!.addProduct),
           )),
         ],

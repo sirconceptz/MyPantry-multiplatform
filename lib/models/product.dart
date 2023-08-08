@@ -3,6 +3,8 @@ import 'dart:core';
 class Product {
   final int? id;
   final String name;
+  final String mainCategory;
+  final String detailCategory;
   final String expirationDate;
   final String productionDate;
   final String composition;
@@ -19,6 +21,8 @@ class Product {
   const Product(
       {required this.id,
       required this.name,
+      required this.mainCategory,
+      required this.detailCategory,
       required this.expirationDate,
       required this.productionDate,
       required this.composition,
@@ -35,6 +39,8 @@ class Product {
   Map<String, dynamic> toMap() => {
         'id': id,
         'name': name,
+        'mainCategory': mainCategory,
+        'detailCategory': detailCategory,
         'expirationDate': expirationDate,
         'productionDate': productionDate,
         'composition': composition,

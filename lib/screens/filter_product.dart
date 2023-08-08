@@ -41,15 +41,9 @@ class FilterProduct extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: MyPantry.iosIcon,
+          child: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context, rootNavigator: true).push<void>(
-              CupertinoPageRoute(
-                title: MyPantry.title,
-                fullscreenDialog: true,
-                builder: (context) => const MyPantry(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),

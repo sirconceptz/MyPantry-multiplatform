@@ -13,6 +13,8 @@ class ProductDetails extends StatelessWidget {
 
   Widget _buildForm(BuildContext context) {
     var name = "";
+    var mainCategory = "";
+    var detailCategory = "";
     var expirationDate = "";
     var productionDate = "";
     var composition = "";
@@ -28,13 +30,15 @@ class ProductDetails extends StatelessWidget {
 
     if (product != null) {
       name = product!.name;
+      mainCategory = product!.mainCategory;
+      detailCategory = product!.detailCategory;
       expirationDate = product!.expirationDate;
       productionDate = product!.productionDate;
       composition = product!.composition;
       healingProperties = product!.productionDate;
-      dosage = product!.productionDate;
-      weight = product!.productionDate;
-      volume = product!.productionDate;
+      dosage = product!.dosage;
+      weight = product!.weight.toString();
+      volume = product!.volume.toString();
       isVege = product!.isVege
           ? AppLocalizations.of(context)!.yes
           : AppLocalizations.of(context)!.no;
@@ -51,8 +55,6 @@ class ProductDetails extends StatelessWidget {
     }
 
     return SafeArea(
-        top: true,
-        bottom: true,
         child: Padding(
             padding: const EdgeInsets.all(16),
             child: Card(
@@ -65,6 +67,24 @@ class ProductDetails extends StatelessWidget {
                   Text(name,
                       style: const TextStyle(fontWeight: FontWeight.bold)),
                 ]),
+                const Divider(),
+                Row(
+                  children: [
+                    const Text("Main category"),
+                    const Spacer(), // use Spacer
+                    Text(mainCategory,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                const Divider(),
+                Row(
+                  children: [
+                    const Text("Detail category"),
+                    const Spacer(), // use Spacer
+                    Text(detailCategory,
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
                 const Divider(),
                 Row(
                   children: [

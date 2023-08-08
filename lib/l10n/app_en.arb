@@ -64,5 +64,12 @@
   "salty": "Salty",
   "yes": "Yes",
   "no": "No",
-  "noProducts": "No products"
+  "noProducts": "No products",
+  "noOwnCategories": "No own categories",
+  "noStorageLocations": "No storage locations",
+  "name": "Name",
+  "description": "Description",
+  "save": "Save",
+  "newOwnCategory": "New category",
+  "newStorageLocation": "New storage location"
 }

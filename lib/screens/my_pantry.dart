@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_pantry_flutter_app/screens/filter_product.dart';
 import 'package:my_pantry_flutter_app/screens/new_product.dart';
 import 'package:my_pantry_flutter_app/screens/product_details.dart';
 import 'package:my_pantry_flutter_app/services/database_helper.dart';
@@ -76,6 +77,18 @@ class _MyPantryState extends State<MyPantry> {
   Widget _buildIos(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+          leading: CupertinoButton(
+            padding: EdgeInsets.zero,
+            child: FilterProduct.iosIcon,
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).push<void>(
+                CupertinoPageRoute(
+                  title: FilterProduct.title,
+                  fullscreenDialog: true,
+                  builder: (context) => const FilterProduct(),
+                ),
+              );            },
+          ),
           trailing: CupertinoButton(
         padding: EdgeInsets.zero,
         child: NewProduct.iosIcon,
