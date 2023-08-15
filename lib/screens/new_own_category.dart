@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_pantry_flutter_app/models/own_category.dart';
 
-import '../services/database_helper.dart';
+import '../utils/database_helper.dart';
 import '../widgets/platform_widget.dart';
 
 class NewOwnCategory extends StatefulWidget {

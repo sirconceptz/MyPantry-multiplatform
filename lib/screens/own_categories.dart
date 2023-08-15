@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_pantry_flutter_app/models/own_category.dart';
 import 'package:my_pantry_flutter_app/screens/new_own_category.dart';
 
-import '../services/database_helper.dart';
+import '../utils/database_helper.dart';
 import '../widgets/own_category_widget.dart';
 import '../widgets/platform_widget.dart';
 import 'new_product.dart';

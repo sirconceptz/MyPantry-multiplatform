@@ -1,6 +1,8 @@
 import 'dart:core';
 
-class Product {
+import 'package:equatable/equatable.dart';
+
+class Product extends Equatable {
   final int? id;
   final String name;
   final String mainCategory;
@@ -54,4 +56,23 @@ class Product {
         'hasSalt': hasSalt == true ? 1 : 0,
         'taste': taste
       };
+
+  @override
+  List<Object?> get props => [
+        id,
+        name,
+        mainCategory,
+        detailCategory,
+        productionDate,
+        composition,
+        healingProperties,
+        dosage,
+        weight,
+        volume,
+        isVege,
+        isBio,
+        hasSugar,
+        hasSalt,
+        taste
+      ];
 }

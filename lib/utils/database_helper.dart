@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:my_pantry_flutter_app/domain/get_group_product_list_use_case.dart';
+import 'package:my_pantry_flutter_app/models/group_product.dart';
 import 'package:my_pantry_flutter_app/models/own_category.dart';
 import 'package:my_pantry_flutter_app/models/storage_location.dart';
 import 'package:path/path.dart';
@@ -15,18 +17,20 @@ class DatabaseHelper {
   static const String ownCategoriesTableName = "OwnCategory";
   static const String storageLocationsTableName = "StorageLocation";
 
-  static const String productTable = "CREATE TABLE Product(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, mainCategory TEXT, detailCategory TEXT, expirationDate TEXT, productionDate TEXT, composition TEXT, healingProperties TEXT, dosage TEXT, weight INTEGER, volume INTEGER, isVege INTEGER, isBio INTEGER, hasSugar INTEGER, hasSalt INTEGER, taste TEXT);";
-  static const String ownCategoriesTable = "CREATE TABLE OwnCategory(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, description TEXT);";
-  static const String storageLocationsTable = "CREATE TABLE StorageLocation(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, description TEXT);";
+  static const String productTable =
+      "CREATE TABLE Product(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, mainCategory TEXT, detailCategory TEXT, expirationDate TEXT, productionDate TEXT, composition TEXT, healingProperties TEXT, dosage TEXT, weight INTEGER, volume INTEGER, isVege INTEGER, isBio INTEGER, hasSugar INTEGER, hasSalt INTEGER, taste TEXT);";
+  static const String ownCategoriesTable =
+      "CREATE TABLE OwnCategory(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, description TEXT);";
+  static const String storageLocationsTable =
+      "CREATE TABLE StorageLocation(id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name TEXT NOT NULL, description TEXT);";
 
   static Future<Database> _getDB() async {
     return openDatabase(join(await getDatabasesPath(), _dbName),
-        onCreate: (db, version) async =>
-        {
-          await db.execute(productTable),
-          await db.execute(ownCategoriesTable),
-          await db.execute(storageLocationsTable),
-        },
+        onCreate: (db, version) async => {
+              await db.execute(productTable),
+              await db.execute(ownCategoriesTable),
+              await db.execute(storageLocationsTable),
+            },
         version: _version);
   }
 
@@ -61,7 +65,8 @@ class DatabaseHelper {
         conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
-  static Future<int> updateStorageLocation(StorageLocation storageLocation) async {
+  static Future<int> updateStorageLocation(
+      StorageLocation storageLocation) async {
     final db = await _getDB();
     return await db.update(storageLocationsTableName, storageLocation.toMap(),
         where: 'id = ?',
@@ -71,17 +76,21 @@ class DatabaseHelper {
 
   static Future<int> deleteProduct(Product product) async {
     final db = await _getDB();
-    return await db.delete(productTableName, where: 'id = ?', whereArgs: [product.id]);
+    return await db
+        .delete(productTableName, where: 'id = ?', whereArgs: [product.id]);
   }
 
   static Future<int> deleteOwnCategory(OwnCategory ownCategory) async {
     final db = await _getDB();
-    return await db.delete(ownCategoriesTableName, where: 'id = ?', whereArgs: [ownCategory.id]);
+    return await db.delete(ownCategoriesTableName,
+        where: 'id = ?', whereArgs: [ownCategory.id]);
   }
 
-  static Future<int> deleteStorageLocation(StorageLocation storageLocation) async {
+  static Future<int> deleteStorageLocation(
+      StorageLocation storageLocation) async {
     final db = await _getDB();
-    return await db.delete(storageLocationsTableName, where: 'id = ?', whereArgs: [storageLocation.id]);
+    return await db.delete(storageLocationsTableName,
+        where: 'id = ?', whereArgs: [storageLocation.id]);
   }
 
   static Future<List<Product>?> observeAllProducts() async {
@@ -112,9 +121,48 @@ class DatabaseHelper {
     });
   }
 
+  static Future<List<GroupProduct>?> observeAllGroupProducts() async {
+    var products = await observeAllProducts();
+    if (products == null) {
+      return null;
+    } else {
+      return GetGroupProductUseCase().getGroupProductList(products);
+    }
+  }
+
+  // static Future<List<GroupProduct>?> observeAllGroupProducts() async {
+  //   final db = await _getDB();
+  //   final List<Map<String, dynamic>> maps = await db.query(productTableName);
+  //   if (maps.isEmpty) {
+  //     return null;
+  //   }
+  //
+  //   List<Product> products = List.generate(maps.length, (i) {
+  //     return Product(
+  //         id: maps[i]['id'],
+  //         name: maps[i]['name'],
+  //         mainCategory: maps[i]['mainCategory'],
+  //         detailCategory: maps[i]['detailCategory'],
+  //         expirationDate: maps[i]['expirationDate'],
+  //         productionDate: maps[i]['productionDate'],
+  //         composition: maps[i]['composition'],
+  //         healingProperties: maps[i]['healingProperties'],
+  //         dosage: maps[i]['dosage'],
+  //         weight: maps[i]['weight'],
+  //         volume: maps[i]['volume'],
+  //         isVege: maps[i]['isVege'] == 1 ? true : false,
+  //         isBio: maps[i]['isBio'] == 1 ? true : false,
+  //         hasSugar: maps[i]['hasSugar'] == 1 ? true : false,
+  //         hasSalt: maps[i]['hasSalt'] == 1 ? true : false,
+  //         taste: maps[i]['taste']);
+  //   });
+  //   return GetGroupProductUseCase().getGroupProductList(products);
+  // }
+
   static Future<List<OwnCategory>?> observeAllOwnCategories() async {
     final db = await _getDB();
-    final List<Map<String, dynamic>> maps = await db.query(ownCategoriesTableName);
+    final List<Map<String, dynamic>> maps =
+        await db.query(ownCategoriesTableName);
     if (maps.isEmpty) {
       return null;
     }
@@ -129,7 +177,8 @@ class DatabaseHelper {
 
   static Future<List<StorageLocation>?> observeAllStorageLocations() async {
     final db = await _getDB();
-    final List<Map<String, dynamic>> maps = await db.query(storageLocationsTableName);
+    final List<Map<String, dynamic>> maps =
+        await db.query(storageLocationsTableName);
     if (maps.isEmpty) {
       return null;
     }

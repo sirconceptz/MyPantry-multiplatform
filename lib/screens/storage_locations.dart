@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:my_pantry_flutter_app/screens/new_storage_location.dart';
 
 import '../models/storage_location.dart';
-import '../services/database_helper.dart';
+import '../utils/database_helper.dart';
 import '../widgets/platform_widget.dart';
 import '../widgets/storage_location_widget.dart';
 import 'new_product.dart';

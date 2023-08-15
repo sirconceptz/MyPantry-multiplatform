@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 import '../models/product.dart';
-import '../services/database_helper.dart';
+import '../utils/database_helper.dart';
 import '../utils/taste.dart';
 import '../widgets/platform_widget.dart';
 
@@ -58,8 +58,6 @@ class _NewProductState extends State<NewProduct> {
   }
 
   Widget _buildForm(BuildContext context) {
-
-
     return Form(
       key: _formKey,
       child: Column(

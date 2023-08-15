@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:my_pantry_flutter_app/models/group_product.dart';
 import 'package:my_pantry_flutter_app/screens/filter_product.dart';
 import 'package:my_pantry_flutter_app/screens/new_product.dart';
 import 'package:my_pantry_flutter_app/screens/product_details.dart';
-import 'package:my_pantry_flutter_app/services/database_helper.dart';
+import 'package:my_pantry_flutter_app/utils/database_helper.dart';
 import 'package:my_pantry_flutter_app/widgets/group_product_widget.dart';
 
-import '../models/product.dart';
 import '../widgets/platform_widget.dart';
 
 class MyPantry extends StatefulWidget {
@@ -27,47 +27,64 @@ class _MyPantryState extends State<MyPantry> {
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
-      children: [
-        Expanded(
-            child: Center(
-          child: FutureBuilder<List<Product>?>(
-            future: DatabaseHelper.observeAllProducts(),
-            builder: (context, AsyncSnapshot<List<Product>?> snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              } else if (snapshot.hasData) {
-                if (snapshot.data != null) {
-                  return ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) => GroupProductWidget(
-                            product: snapshot.data![index],
-                            onTap: () async {
-                              await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => ProductDetails(
-                                          product: snapshot.data![index])));
-                            },
-                            longPress: () {},
-                          ));
-                }
-              } else {
-                return Text(AppLocalizations.of(context)!.noProducts);
-              }
-              return Text(AppLocalizations.of(context)!.noProducts);
-            },
-          ),
-        ))
-      ],
-    ));
+          children: [
+            Expanded(
+                child: Center(
+                  child: FutureBuilder<List<GroupProduct>?>(
+                    future: DatabaseHelper.observeAllGroupProducts(),
+                    builder: (context,
+                        AsyncSnapshot<List<GroupProduct>?> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      } else if (snapshot.hasData) {
+                        if (snapshot.data != null) {
+                          return ListView.builder(
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (context, index) =>
+                                  GroupProductWidget(
+                                    groupProduct: snapshot.data![index],
+                                    onTap: () async {
+                                      await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProductDetails(
+                                                      product: snapshot
+                                                          .data![index]
+                                                          .product)));
+                                    },
+                                    longPress: () {},
+                                  ));
+                        }
+                      } else {
+                        return Text(AppLocalizations.of(context)!.noProducts);
+                      }
+                      return Text(AppLocalizations.of(context)!.noProducts);
+                    },
+                  ),
+                ))
+          ],
+        ));
   }
 
   Widget _buildAndroid(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(MyPantry.title),
+      ),
+      floatingActionButton: FloatingActionButton(
+        /// Calls `context.read` instead of `context.watch` so that it does not rebuild
+        /// when [Counter] changes.
+        onPressed: () =>
+            Navigator.push<void>(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        FilterProduct(androidDrawer: widget.androidDrawer))),
+        tooltip: 'Increment',
+        child: FilterProduct.androidIcon,
       ),
       drawer: widget.androidDrawer,
       body: _buildBody(context),
@@ -87,21 +104,22 @@ class _MyPantryState extends State<MyPantry> {
                   fullscreenDialog: true,
                   builder: (context) => const FilterProduct(),
                 ),
-              );            },
+              );
+            },
           ),
           trailing: CupertinoButton(
-        padding: EdgeInsets.zero,
-        child: NewProduct.iosIcon,
-        onPressed: () {
-          Navigator.of(context, rootNavigator: true).push<void>(
-            CupertinoPageRoute(
-              title: NewProduct.title,
-              fullscreenDialog: true,
-              builder: (context) => const NewProduct(),
-            ),
-          );
-        },
-      )),
+            padding: EdgeInsets.zero,
+            child: NewProduct.iosIcon,
+            onPressed: () {
+              Navigator.of(context, rootNavigator: true).push<void>(
+                CupertinoPageRoute(
+                  title: NewProduct.title,
+                  fullscreenDialog: true,
+                  builder: (context) => const NewProduct(),
+                ),
+              );
+            },
+          )),
       child: _buildBody(context),
     );
   }

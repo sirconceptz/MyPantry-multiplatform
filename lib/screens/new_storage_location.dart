@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:my_pantry_flutter_app/models/own_category.dart';
 import 'package:my_pantry_flutter_app/models/storage_location.dart';
 
-import '../services/database_helper.dart';
+import '../utils/database_helper.dart';
 import '../widgets/platform_widget.dart';
 
 class NewStorageLocation extends StatefulWidget {
@@ -39,8 +38,6 @@ class _NewStorageLocationState extends State<NewStorageLocation> {
   }
 
   Widget _buildForm(BuildContext context) {
-
-
     return Form(
       key: _formKey,
       child: Column(

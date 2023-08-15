@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../widgets/platform_widget.dart';
-import 'my_pantry.dart';
 
-class ScanProduct extends StatelessWidget {
+class ScanProduct extends StatefulWidget {
   static const title = 'Scan product';
   static const androidIcon = Icon(Icons.camera_alt_outlined);
   static const iosIcon = Icon(CupertinoIcons.camera);
@@ -14,13 +14,45 @@ class ScanProduct extends StatelessWidget {
 
   final Widget? androidDrawer;
 
+  @override
+  State<ScanProduct> createState() => _ScanProductState();
+}
+
+class _ScanProductState extends State<ScanProduct> {
+
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
       children: [
         Expanded(
             child: Center(
-          child: Text(AppLocalizations.of(context)!.scanProduct),
+          child:
+          // Column(
+          //   children: [
+          //     Text(AppLocalizations.of(context)!.scanProduct),
+          //     ElevatedButton(
+          //       onPressed: () {
+          //         ;
+          //       },
+          //       child: const Text("Scan"),
+          //     )
+          //   ],
+          // ),
+          MobileScanner(
+            //fit: BoxFit.contain,
+            controller: MobileScannerController(
+              detectionSpeed: DetectionSpeed.normal,
+              facing: CameraFacing.back,
+              returnImage: true,
+            ),
+            onDetect: (capture) {
+              final List<Barcode> barcodes = capture.barcodes;
+              //final Uint8List? image = capture.image;
+              for (final barcode in barcodes) {
+                debugPrint('Barcode found! ${barcode.rawValue}');
+              }
+            },
+          )
         ))
       ],
     ));
@@ -31,7 +63,7 @@ class ScanProduct extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.scanProduct),
       ),
-      drawer: androidDrawer,
+      drawer: widget.androidDrawer,
       body: _buildBody(context),
     );
   }
@@ -41,15 +73,9 @@ class ScanProduct extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         leading: CupertinoButton(
           padding: EdgeInsets.zero,
-          child: MyPantry.iosIcon,
+          child: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context, rootNavigator: true).push<void>(
-              CupertinoPageRoute(
-                title: MyPantry.title,
-                fullscreenDialog: true,
-                builder: (context) => const MyPantry(),
-              ),
-            );
+            Navigator.pop(context);
           },
         ),
       ),

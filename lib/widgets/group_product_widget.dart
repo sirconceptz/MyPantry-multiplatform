@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import '../models/product.dart';
+import 'package:my_pantry_flutter_app/models/group_product.dart';
 
 class GroupProductWidget extends StatelessWidget {
-  final Product product;
+  final GroupProduct groupProduct;
   final VoidCallback onTap;
   final VoidCallback longPress;
 
   const GroupProductWidget(
       {Key? key,
-      required this.product,
+      required this.groupProduct,
       required this.onTap,
       required this.longPress})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var weight = product.weight.toString();
-    var volume = product.volume.toString();
+    var weight = groupProduct.product.weight.toString();
+    var volume = groupProduct.product.volume.toString();
+    var quantity = groupProduct.quantity.toString();
     var expirationDate = "";
-    if(product.expirationDate.isNotEmpty) {
-      DateTime tempDate = DateFormat("yyyy.MM.dd").parse(product.expirationDate);
+    if (groupProduct.product.expirationDate.isNotEmpty) {
+      DateTime tempDate =
+          DateFormat("yyyy.MM.dd").parse(groupProduct.product.expirationDate);
       expirationDate = DateFormat.yMEd().format(tempDate);
     }
 
@@ -36,7 +37,7 @@ class GroupProductWidget extends StatelessWidget {
               child: Column(children: [
                 Row(
                   children: [
-                    Text(product.name,
+                    Text(groupProduct.product.name,
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                     const Spacer(),
@@ -51,6 +52,9 @@ class GroupProductWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [Text("Volume: $volume"), const Spacer()],
+                ),
+                Row(
+                  children: [Text("Quantity: $quantity"), const Spacer()],
                 ),
               ])),
         ),
