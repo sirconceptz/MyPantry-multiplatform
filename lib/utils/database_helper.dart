@@ -126,38 +126,18 @@ class DatabaseHelper {
     if (products == null) {
       return null;
     } else {
-      return GetGroupProductUseCase().getGroupProductList(products);
+      return GetGroupProductUseCase.getGroupProductList(products);
     }
   }
 
-  // static Future<List<GroupProduct>?> observeAllGroupProducts() async {
-  //   final db = await _getDB();
-  //   final List<Map<String, dynamic>> maps = await db.query(productTableName);
-  //   if (maps.isEmpty) {
-  //     return null;
-  //   }
-  //
-  //   List<Product> products = List.generate(maps.length, (i) {
-  //     return Product(
-  //         id: maps[i]['id'],
-  //         name: maps[i]['name'],
-  //         mainCategory: maps[i]['mainCategory'],
-  //         detailCategory: maps[i]['detailCategory'],
-  //         expirationDate: maps[i]['expirationDate'],
-  //         productionDate: maps[i]['productionDate'],
-  //         composition: maps[i]['composition'],
-  //         healingProperties: maps[i]['healingProperties'],
-  //         dosage: maps[i]['dosage'],
-  //         weight: maps[i]['weight'],
-  //         volume: maps[i]['volume'],
-  //         isVege: maps[i]['isVege'] == 1 ? true : false,
-  //         isBio: maps[i]['isBio'] == 1 ? true : false,
-  //         hasSugar: maps[i]['hasSugar'] == 1 ? true : false,
-  //         hasSalt: maps[i]['hasSalt'] == 1 ? true : false,
-  //         taste: maps[i]['taste']);
-  //   });
-  //   return GetGroupProductUseCase().getGroupProductList(products);
-  // }
+  static Future<GroupProduct?> observeGroupProduct(int productId) async {
+    var products = await observeAllProducts();
+    if (products == null) {
+      return null;
+    } else {
+      return GetGroupProductUseCase.getGroupProductById(productId, products);
+    }
+  }
 
   static Future<List<OwnCategory>?> observeAllOwnCategories() async {
     final db = await _getDB();

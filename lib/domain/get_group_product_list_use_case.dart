@@ -4,7 +4,7 @@ import '../models/group_product.dart';
 import '../models/product.dart';
 
 class GetGroupProductUseCase {
-  List<GroupProduct> getGroupProductList(List<Product> products) {
+  static List<GroupProduct> getGroupProductList(List<Product> products) {
     var groupProductList = <GroupProduct>[];
     var toAddGroupProductList = <GroupProduct>[];
     var toRemoveGroupProductList = <GroupProduct>[];
@@ -38,7 +38,7 @@ class GetGroupProductUseCase {
     return groupProductList;
   }
 
-  GroupProduct? getGroupIfOnList(
+  static GroupProduct? getGroupIfOnList(
       Product product, List<GroupProduct> groupProductList) {
     GroupProduct? groupProductReturned;
     for (var i = 0; i < groupProductList.length; i++) {
@@ -65,5 +65,47 @@ class GetGroupProductUseCase {
       }
     }
     return groupProductReturned;
+  }
+
+  static GroupProduct? getGroupProductById(
+      int productId, List<Product> products) {
+    Product? product;
+    List<int> idList = [];
+    int quantity = 0;
+    for (var i = 0; i < products.length; i++) {
+      if (products[i].id == productId) {
+        product = products[i];
+      }
+    }
+    for (var i = 0; i < products.length; i++) {
+      Product testedProduct = Product(
+          id: productId,
+          name: products[i].name,
+          mainCategory: products[i].mainCategory,
+          detailCategory: products[i].detailCategory,
+          expirationDate: products[i].expirationDate,
+          productionDate: products[i].productionDate,
+          composition: products[i].composition,
+          healingProperties: products[i].healingProperties,
+          dosage: products[i].dosage,
+          weight: products[i].weight,
+          volume: products[i].volume,
+          isVege: products[i].isVege,
+          isBio: products[i].isBio,
+          hasSugar: products[i].hasSugar,
+          hasSalt: products[i].hasSalt,
+          taste: products[i].taste);
+      if (product == testedProduct) {
+        idList.add(products[i].id!);
+        quantity++;
+      }
+    }
+    if(quantity > 0) {
+      return GroupProduct(
+          product: product!, quantity: quantity, idList: idList);
+    }
+    else {
+      return null;
+    }
   }
 }

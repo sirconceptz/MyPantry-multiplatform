@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_pantry_flutter_app/models/group_product.dart';
 
+import '../utils/date_converter.dart';
+
 class GroupProductWidget extends StatelessWidget {
   final GroupProduct groupProduct;
   final VoidCallback onTap;
@@ -21,9 +23,7 @@ class GroupProductWidget extends StatelessWidget {
     var quantity = groupProduct.quantity.toString();
     var expirationDate = "";
     if (groupProduct.product.expirationDate.isNotEmpty) {
-      DateTime tempDate =
-          DateFormat("yyyy.MM.dd").parse(groupProduct.product.expirationDate);
-      expirationDate = DateFormat.yMEd().format(tempDate);
+      expirationDate = DateConverter.convertFromDbToShow(groupProduct.product.expirationDate);
     }
 
     return InkWell(

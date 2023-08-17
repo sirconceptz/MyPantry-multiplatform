@@ -27,46 +27,46 @@ class _MyPantryState extends State<MyPantry> {
   Widget _buildBody(BuildContext context) {
     return Material(
         child: Column(
-          children: [
-            Expanded(
-                child: Center(
-                  child: FutureBuilder<List<GroupProduct>?>(
-                    future: DatabaseHelper.observeAllGroupProducts(),
-                    builder: (context,
-                        AsyncSnapshot<List<GroupProduct>?> snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text(snapshot.error.toString());
-                      } else if (snapshot.hasData) {
-                        if (snapshot.data != null) {
-                          return ListView.builder(
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (context, index) =>
-                                  GroupProductWidget(
-                                    groupProduct: snapshot.data![index],
-                                    onTap: () async {
-                                      await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProductDetails(
-                                                      product: snapshot
-                                                          .data![index]
-                                                          .product)));
-                                    },
-                                    longPress: () {},
-                                  ));
-                        }
-                      } else {
-                        return Text(AppLocalizations.of(context)!.noProducts);
-                      }
-                      return Text(AppLocalizations.of(context)!.noProducts);
-                    },
-                  ),
-                ))
-          ],
-        ));
+      children: [
+        Expanded(
+            child: Center(
+          child: FutureBuilder<List<GroupProduct>?>(
+            future: DatabaseHelper.observeAllGroupProducts(),
+            builder: (context, AsyncSnapshot<List<GroupProduct>?> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              } else if (snapshot.hasData) {
+                if (snapshot.data != null) {
+                  return ListView.builder(
+                      itemCount: snapshot.data!.length,
+                      itemBuilder: (context, index) =>
+                          groupProductItem(snapshot.data![index]));
+                }
+              } else {
+                return Text(AppLocalizations.of(context)!.noProducts);
+              }
+              return Text(AppLocalizations.of(context)!.noProducts);
+            },
+          ),
+        ))
+      ],
+    ));
+  }
+
+  Widget groupProductItem(GroupProduct groupProduct) {
+    return GroupProductWidget(
+      groupProduct: groupProduct,
+      onTap: () async {
+        await Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    ProductDetails(productId: groupProduct.product.id!)));
+      },
+      longPress: () {},
+    );
   }
 
   Widget _buildAndroid(BuildContext context) {
@@ -75,15 +75,12 @@ class _MyPantryState extends State<MyPantry> {
         title: const Text(MyPantry.title),
       ),
       floatingActionButton: FloatingActionButton(
-        /// Calls `context.read` instead of `context.watch` so that it does not rebuild
-        /// when [Counter] changes.
-        onPressed: () =>
-            Navigator.push<void>(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        FilterProduct(androidDrawer: widget.androidDrawer))),
-        tooltip: 'Increment',
+        onPressed: () => Navigator.push<void>(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    FilterProduct(androidDrawer: widget.androidDrawer))),
+        tooltip: 'Filter product',
         child: FilterProduct.androidIcon,
       ),
       drawer: widget.androidDrawer,

@@ -71,5 +71,6 @@
   "description": "Description",
   "save": "Save",
   "newOwnCategory": "New category",
-  "newStorageLocation": "New storage location"
+  "newStorageLocation": "New storage location",
+  "whatDoYouWantToDo": "What do you want to do?"
 }

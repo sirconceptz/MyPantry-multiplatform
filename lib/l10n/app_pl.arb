@@ -38,4 +38,6 @@
   "description": "Opis",
   "save": "Zapisz",
   "newOwnCategory": "Nowa kategoria",
-  "newStorageLocation": "Nowe miejsce przechowywania"}
+  "newStorageLocation": "Nowe miejsce przechowywania",
+  "whatDoYouWantToDo": "Co chcesz zrobić?"
+}

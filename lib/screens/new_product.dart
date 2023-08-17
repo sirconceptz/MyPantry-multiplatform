@@ -300,10 +300,7 @@ class _NewProductState extends State<NewProduct> {
           Center(
               child: ElevatedButton(
             onPressed: () async {
-              // Validate returns true if the form is valid, or false otherwise.
               if (_formKey.currentState!.validate()) {
-                // If the form is valid, display a snackbar. In the real world,
-                // you'd often call a server or save the information in a database.
                 final name = nameController.value.text;
                 final mainCategory = mainCategoryValue;
                 final detailCategory = detailCategoryValue;
@@ -320,7 +317,7 @@ class _NewProductState extends State<NewProduct> {
                 final isBio = isBioChecked;
                 final hasSugar = hasSugarChecked;
                 final hasSalt = hasSaltChecked;
-                final taste = _taste.toString();
+                final taste = _taste?.value.toString() ?? "";
 
                 final Product product = Product(
                     id: null,

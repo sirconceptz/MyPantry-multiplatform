@@ -23,6 +23,11 @@ class MyPantryApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          color: Colors.blue,
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
@@ -126,13 +131,24 @@ class _AndroidDrawer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           DrawerHeader(
-            decoration: const BoxDecoration(color: Colors.blue),
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomLeft,
+              colors: [Colors.lightBlueAccent, Colors.blue, Colors.blueAccent],
+            )),
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20),
-              child: Icon(
-                Icons.account_circle,
-                color: Colors.blue.shade800,
-                size: 96,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.myPantry,
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                  Text(AppLocalizations.of(context)!.whatDoYouWantToDo),
+                ],
               ),
             ),
           ),
